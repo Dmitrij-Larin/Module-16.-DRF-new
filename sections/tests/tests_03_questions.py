@@ -31,7 +31,7 @@ class ContentTestCase(APITestCase):
     def test_13_question_list(self):
         response = self.client.get('/question/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json()['results'][0]['question'], 'Test Question')
+        self.assertEqual(response.json()['results'][0]['question_section'], 'Test Section')
 
     def test_14_question_is_correct(self):
         response = self.client.get(f'/question/{self.test_question.id}/')
