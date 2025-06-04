@@ -1,13 +1,13 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
 
 from sections.models import Section, Content, Question
-from sections.permissions import IsModerator, IsSuperuser
-from sections.serializers.section_serializers import SectionListSerializer, SectionSerializer
-from sections.serializers.content_serializers import ContentSerializer, ContentSectionSerializer, ContentListSerializer
-from sections.serializers.question_serializer import QuestionSectionSerializer, QuestionSerializer
 from sections.paginators import SectionPaginator, SectionContentPaginator, QuestionPaginator
+from sections.permissions import IsModerator
+from sections.serializers.content_serializers import ContentSerializer, ContentListSerializer
+from sections.serializers.question_serializer import QuestionSerializer
+from sections.serializers.section_serializers import SectionListSerializer, SectionSerializer
 
 
 class SectionListAPIView(ListAPIView):
@@ -25,7 +25,7 @@ class SectionCreateAPIView(CreateAPIView):
 class SectionRetrieveAPIView(RetrieveAPIView):
     serializer_class = SectionSerializer
     queryset = Section.objects.all()
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
 
 class SectionUpdateAPIView(UpdateAPIView):
@@ -75,6 +75,7 @@ class QuestionListAPIView(ListAPIView):
     queryset = Question.objects.all()
     permission_classes = (IsAuthenticated,)
     pagination_class = QuestionPaginator
+
 
 class QuestionRetrieveAPIView(RetrieveAPIView):
     serializer_class = QuestionSerializer

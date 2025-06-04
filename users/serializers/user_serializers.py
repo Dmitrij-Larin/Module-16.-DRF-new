@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainSerializer, AuthUser
-from rest_framework_simplejwt.tokens import Token
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from users.models import User
 from users.validators import PasswordValidator
@@ -10,7 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'last_name', 'first_name', 'phone', 'is_active']
-
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -45,10 +43,9 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     #     return instance
 
 
-class UserTokenObtainPairSerializer(TokenObtainSerializer):
+class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
         token['email'] = user.email
         return token
-

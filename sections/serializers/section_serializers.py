@@ -1,5 +1,5 @@
-from rest_framework.serializers import ModelSerializer
 from rest_framework.fields import SerializerMethodField
+from rest_framework.serializers import ModelSerializer
 
 from sections.models import Section, Content
 from sections.serializers.content_serializers import ContentSectionSerializer

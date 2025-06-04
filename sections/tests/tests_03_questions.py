@@ -1,5 +1,5 @@
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 
 from sections.models import Section, Content, Question
 from sections.tests.utils import get_member_user
@@ -22,10 +22,10 @@ class ContentTestCase(APITestCase):
             content="Test Content",
         )
         self.test_question = Question.objects.create(
-            question_section = self.test_section,
-            description = 'Test Question Description',
-            question = 'Test Question',
-            answer = 'Test Answer',
+            question_section=self.test_section,
+            description='Test Question Description',
+            question='Test Question',
+            answer='Test Answer',
         )
 
     def test_13_question_list(self):

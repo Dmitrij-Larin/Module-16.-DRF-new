@@ -1,7 +1,7 @@
 from django.db import models
-from users.models import NULLABLE
 from django.utils.translation import gettext_lazy as _
 
+from users.models import NULLABLE
 
 
 class Section(models.Model):
