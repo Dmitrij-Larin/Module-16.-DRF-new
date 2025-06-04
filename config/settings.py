@@ -102,18 +102,36 @@ DRIVER = os.getenv('MS_SQL_DRIVER')
 #     }
 # }
 
+# # local
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mssql',
+#         'NAME': DATABASE,
+#         'USER': USER,
+#         'PASSWORD': PASSWORD,
+#         'HOST': HOST,
+#         'PORT': '',
+#         'OPTIONS':
+#             {
+#                 'driver': DRIVER,
+#             },
+#     }
+# }
+
+# DOCKER
+database_name = os.getenv('POSTGRES_DATABASE_DOCKER')
+database_user = os.getenv('POSTGRESSQL_USER')
+database_password = os.getenv('POSTGRES_PASSWORD_DOCKER')
+database_port = os.getenv('POSTGRESSQL_PORT_DOCKER')
+database_host = os.getenv('POSTGRESSQL_HOST_DOCKER')
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': DATABASE,
-        'USER': USER,
-        'PASSWORD': PASSWORD,
-        'HOST': HOST,
-        'PORT': '',
-        'OPTIONS':
-            {
-                'driver': DRIVER,
-            },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': database_name,
+        'USER': database_user,
+        'PORT': database_port,
+        'PASSWORD': database_password,
+        'HOST': database_host
     }
 }
 
