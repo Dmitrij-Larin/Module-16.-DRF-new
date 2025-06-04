@@ -1,13 +1,19 @@
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 
 from sections.models import Section, Content
 from sections.tests.utils import get_admin_user, get_member_user
 
 
 class ContentTestCase(APITestCase):
+    """
+    Тестирование контента
+    """
 
     def setUp(self):
+        """
+        Параметры для тестов
+        """
         self.user = get_admin_user()
         response = self.client.post('/users/token/', {"email": self.user.email, "password": "qwerty"})
         self.access_token = response.json().get("access")
@@ -23,6 +29,9 @@ class ContentTestCase(APITestCase):
         )
 
     def test_07_content_create(self):
+        """
+        Тест на создание контента
+        """
         data = {
             'section': self.test_section.id,
             'title': 'Test Title Create',
@@ -34,12 +43,18 @@ class ContentTestCase(APITestCase):
         self.assertEqual(response.json().get('content'), 'Test Content Create')
 
     def test_08_content_detail(self):
+        """
+        Тест на просмотр информации о контенте
+        """
         response = self.client.get(f'/content/{self.test_content.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json().get('title'), 'Test Title')
         self.assertEqual(response.json().get('content'), 'Test Content')
 
     def test_09_content_update(self):
+        """
+        Тест на обновление контента
+        """
         data = {
             # 'section': self.test_section.id,
             'title': 'Test Title Update Patch',
@@ -49,17 +64,26 @@ class ContentTestCase(APITestCase):
         self.assertEqual(response.json().get('title'), 'Test Title Update Patch')
 
     def test_10_content_delete(self):
+        """
+        Тест на удаление контента
+        """
         response = self.client.delete(f'/content/{self.test_content.id}/delete/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         response = self.client.delete(f'/content/{self.test_content.id}/delete/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_11_content_list(self):
+        """
+        Тест на просмотр списка контента
+        """
         response = self.client.get('/content/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json()['results'][0]['title'], 'Test Title')
 
     def test_12_content_create_forbidden(self):
+        """
+        Тест на запрет создания пользователем контента
+        """
         self.user = get_member_user()
         response = self.client.post('/users/token/', {"email": self.user.email, "password": "qwerty"})
         self.access_token = response.json().get("access")

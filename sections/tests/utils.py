@@ -2,6 +2,9 @@ from users.models import User, UserRoles
 
 
 def get_admin_user():
+    """
+    Получение админа для тестов
+    """
     user = User.objects.create(
         email='tester@test1.com',
         role=UserRoles.MODERATOR,
@@ -15,6 +18,9 @@ def get_admin_user():
 
 
 def get_member_user():
+    """
+    Получение пользователя для тестов
+    """
     user = User.objects.create(
         email='tester_member@test1.com',
         role=UserRoles.MEMBER,

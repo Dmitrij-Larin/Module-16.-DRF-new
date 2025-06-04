@@ -5,8 +5,14 @@ from config.settings import DATABASE, USER, PASSWORD, HOST, DRIVER, PAD_DATABASE
 
 
 class Command(BaseCommand):
+    """
+    Создание БД
+    """
 
     def handle(self, *args, **options):
+        """
+        Параметры для создания БД
+        """
         ConnectionString = f"""
                             DRIVER={DRIVER};
                             SERVER={HOST};

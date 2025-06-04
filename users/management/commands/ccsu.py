@@ -6,7 +6,13 @@ from users.models import User, UserRoles
 
 
 class Command(BaseCommand):
+    """
+    Создание пользователей в БД
+    """
     def handle(self, *args, **options):
+        """
+        Параметры для создания пользователей в БД
+        """
         admin = User.objects.create(
             email="admin@web.top",
             role=UserRoles.MODERATOR,

@@ -6,8 +6,14 @@ from sections.tests.utils import get_member_user
 
 
 class ContentTestCase(APITestCase):
+    """
+    Тестирование вопросов
+    """
 
     def setUp(self):
+        """
+        Параметры для тестов
+        """
         self.user = get_member_user()
         response = self.client.post('/users/token/', {"email": self.user.email, "password": "qwerty"})
         self.access_token = response.json().get("access")
@@ -29,11 +35,17 @@ class ContentTestCase(APITestCase):
         )
 
     def test_13_question_list(self):
+        """
+        Тест на просмотр списка вопросов
+        """
         response = self.client.get('/question/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json()['results'][0]['question_section'], 'Test Section')
 
     def test_14_question_is_correct(self):
+        """
+        Тест на правильность ответа на вопрос
+        """
         response = self.client.get(f'/question/{self.test_question.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json()['question'], 'Test Question')
